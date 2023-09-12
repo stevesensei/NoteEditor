@@ -1,40 +1,47 @@
 # Note Editor [![license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/setchi/NoteEditor/blob/master/LICENSE) [![Release](https://img.shields.io/github/release/setchi/NoteEditor.svg?style=flat-square&logo=github)](https://github.com/setchi/NoteEditor/releases/latest)
-音楽ゲーム用の譜面エディタです。
-現在wav形式の音楽ファイルのみ対応しています。[English](https://translate.google.com/translate?sl=ja&tl=en&u=https://github.com/setchi/NoteEditor) (by Google Translate)
 
-![screenshot](screenshot.png)
+音乐游戏的谱面编辑器
+支持wav与ogg格式.
 
-## コマンド一覧
-### 一般的なコマンド
-| アクション | コマンド |
-|:-----------|:------------|
-| 元に戻す     |   Ctrl + Z    |
-| やり直し     |   Ctrl + Y    |
-| 保存する     |   Ctrl + S    |
+<img title="" src="screenshot2.png" alt="screenshot2.png" width="1060">
 
-### 譜面の操作
-| アクション | コマンド |
-|:-----------|:------------|
-| 拡大/縮小する | 上下矢印キー / Ctrl + マウスホイール |
-| 現在位置を移動する | 左右矢印キー / マウスホイール / 波形部分を左右にドラッグ |
-| 現在位置を素早く移動する | Ctrl + 左右矢印キー |
-| 再生 / 停止 | Space |
-| ノーツをすべて選択する | Ctrl + A |
-| ノーツを範囲選択する    |     Ctrl + 譜面をドラッグ   |
-| 選択対象をコピーする    |    Ctrl + C     |
-| 選択対象を切り取る     |   Ctrl + X    |
-| 選択対象を削除する | Delete / Back space |
-| コピー対象を張り付ける       |     Ctrl + V     |
+## 操作列表
 
-### ノーツ編集モードの操作
-| アクション | コマンド |
-|:-----------|:------------|
-| ノーツ編集モードを切替える | Alt |
-| ロングノーツ編集を開始する      |      Shift + ノーツを配置    |
-| ロングノーツ編集モードを解除する      |   右クリック / Esc    |
+### 一般操作
 
-## 開発環境
-Unity 2019.1.5f1
+| 操作  | 按键       |
+|:--- |:-------- |
+| 撤销  | Ctrl + Z |
+| 重做  | Ctrl + Y |
+| 保存  | Ctrl + S |
+
+### 谱面操作
+
+| 操作       | 命令                    |
+|:-------- |:--------------------- |
+| 放大缩小网格间隔 | 上下箭头键 / Ctrl + 拖动鼠标滚轮 |
+| 快速移动当前位置 | Ctrl + 左右箭头键          |
+| 播放/暂停    | Space                 |
+| 全选所有note | Ctrl + A              |
+| 范围选择     | Ctrl + 在铺面区域拖动鼠标滚轮    |
+| 复制       | Ctrl + C              |
+| 剪切       | Ctrl + X              |
+| 删除       | Delete / Back space   |
+| 粘贴       | Ctrl + V              |
+| 查看note时间 | 对note/节拍线按鼠标右键        |
+
+### note编辑快捷键
+
+| 操作        | 命令          |
+|:--------- |:----------- |
+| note样式切换  | Alt         |
+| 编辑长note   | Shift + Alt |
+| 取消编辑长note | 右键 / Esc    |
+
+## 开发环境
+
+Unity 2022.1.5f1
 
 ## LICENSE
+
 [MIT](https://github.com/setchi/NoteEditor/blob/master/LICENSE)
