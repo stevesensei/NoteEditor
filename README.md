@@ -3,7 +3,8 @@
 音乐游戏的谱面编辑器
 支持wav与ogg格式.
 
-<img title="" src="screenshot2.png" alt="screenshot2.png" width="1060">
+![screenshot2](https://github.com/stevesensei/NoteEditor/assets/32810212/3e2828ea-ae71-465a-a162-5df2f86f443e)
+
 
 ## 操作列表
 
