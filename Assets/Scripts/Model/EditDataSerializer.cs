@@ -27,17 +27,17 @@ namespace NoteEditor.Model
             {
                 if (noteObject.note.type == NoteTypes.Single)
                 {
-                    dto.notes.Add(ToDTO(noteObject));
+                    dto.notes.Add(ToDTO(noteObject,EditData.BPM.Value));
                 }
                 else if (noteObject.note.type == NoteTypes.Long)
                 {
                     var current = noteObject;
-                    var note = ToDTO(noteObject);
+                    var note = ToDTO(noteObject,EditData.BPM.Value);
 
                     while (EditData.Notes.ContainsKey(current.note.next))
                     {
                         var nextObj = EditData.Notes[current.note.next];
-                        note.notes.Add(ToDTO(nextObj));
+                        note.notes.Add(ToDTO(nextObj,EditData.BPM.Value));
                         current = nextObj;
                     }
 
@@ -83,12 +83,13 @@ namespace NoteEditor.Model
             }
         }
 
-        static MusicDTO.Note ToDTO(NoteObject noteObject)
+        static MusicDTO.Note ToDTO(NoteObject noteObject,int BPM)
         {
             var note = new MusicDTO.Note();
             note.num = noteObject.note.position.num;
             note.block = noteObject.note.position.block;
             note.LPB = noteObject.note.position.LPB;
+            note.exactTime = 60.0 / BPM / noteObject.note.position.LPB * (noteObject.note.position.num - 1);
             note.type = noteObject.note.type == NoteTypes.Long ? 2 : 1;
             note.notes = new List<MusicDTO.Note>();
             return note;

@@ -24,6 +24,11 @@ namespace NoteEditor.Utility
             return AltKey() && Input.GetKeyDown(keyCode);
         }
 
+        public static bool RightKeyDown()
+        {
+            return Input.GetMouseButtonDown(1);
+        }
+
         public static bool AltKey()
         {
             return Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt);

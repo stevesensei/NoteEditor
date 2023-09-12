@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using NoteEditor.DTO;
+using NoteEditor.Model;
+using UnityEngine;
 
 namespace NoteEditor.Notes
 {
@@ -16,6 +18,11 @@ namespace NoteEditor.Notes
         public int ToSamples(int frequency, int BPM)
         {
             return Mathf.FloorToInt(num * (frequency * 60f / BPM / LPB));
+        }
+
+        public double ToExactTime()
+        {
+            return 60.0 / EditData.BPM.Value / LPB * (num - 1);
         }
 
         public override string ToString()

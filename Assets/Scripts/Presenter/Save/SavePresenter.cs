@@ -60,7 +60,7 @@ namespace NoteEditor.Presenter
                 .Do(unsaved => saveButton.GetComponent<Image>().color = unsaved ? unsavedStateButtonColor : savedStateButtonColor)
                 .ToReactiveProperty();
 
-            mustBeSaved.SubscribeToText(messageText, unsaved => unsaved ? "保存が必要な状態" : "");
+            mustBeSaved.SubscribeToText(messageText, unsaved => unsaved ? "请注意保存" : "");
 
             saveActionObservable.Subscribe(_ => Save());
 
@@ -97,9 +97,9 @@ namespace NoteEditor.Presenter
         {
             if (mustBeSaved.Value)
             {
-                dialogMessageText.text = "Do you want to save the changes you made in the note '"
+                dialogMessageText.text = "是否要应用note修改 '"
                     + EditData.Name.Value + "' ?" + System.Environment.NewLine
-                    + "Your changes will be lost if you don't save them.";
+                    + "如果不保存您将会丢失这些数据.";
                 saveDialog.SetActive(true);
                 return false;
             }
@@ -120,7 +120,7 @@ namespace NoteEditor.Presenter
 
             var json = EditDataSerializer.Serialize();
             File.WriteAllText(filePath, json, System.Text.Encoding.UTF8);
-            messageText.text = filePath + " に保存しました";
+            messageText.text = filePath + " 保存成功";
         }
     }
 }

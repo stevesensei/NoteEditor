@@ -3,6 +3,7 @@ using NoteEditor.Notes;
 using NoteEditor.Model;
 using NoteEditor.Utility;
 using System.Linq;
+using TMPro;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -14,10 +15,13 @@ namespace NoteEditor.Presenter
         [SerializeField]
         CanvasEvents canvasEvents = default;
 
+        public TMP_Text exactTimeDisplay;
+
         public readonly Subject<Note> RequestForEditNote = new Subject<Note>();
         public readonly Subject<Note> RequestForRemoveNote = new Subject<Note>();
         public readonly Subject<Note> RequestForAddNote = new Subject<Note>();
         public readonly Subject<Note> RequestForChangeNoteStatus = new Subject<Note>();
+        public readonly Subject<Note> RequestForCheckExactTime = new Subject<Note>();
 
         void Awake()
         {
@@ -30,7 +34,10 @@ namespace NoteEditor.Presenter
                 .Where(_ => !KeyInput.CtrlKey())
                 .Where(_ => !Input.GetMouseButtonDown(1))
                 .Where(_ => 0 <= NoteCanvas.ClosestNotePosition.Value.num);
-
+            var closestNoteAreaOnRightMouseDownObservable = canvasEvents.NotesRegionOnMouseDownObservable
+                .Where(_ => !KeyInput.CtrlKey())
+                .Where(_ => Input.GetMouseButtonDown(1))
+                .Where(_ => 0 <= NoteCanvas.ClosestNotePosition.Value.num);
             closestNoteAreaOnMouseDownObservable
                 .Where(_ => EditState.NoteType.Value == NoteTypes.Single)
                 .Where(_ => !KeyInput.ShiftKey())
@@ -52,6 +59,15 @@ namespace NoteEditor.Presenter
                                EditState.LongNoteTailPosition.Value));
                     }
                 });
+            
+            closestNoteAreaOnRightMouseDownObservable.Where(_ => EditState.NoteType.Value == NoteTypes.Single)
+                .Where(_ => !KeyInput.ShiftKey())
+                .Merge(closestNoteAreaOnMouseDownObservable
+                    .Where(_ => EditState.NoteType.Value == NoteTypes.Long))
+                .Subscribe(_ =>
+                {
+                    exactTimeDisplay.text = ((float)NoteCanvas.ClosestNotePosition.Value.ToExactTime()).ToString();
+                });
 
 
             // Start editing of long note
@@ -70,7 +86,7 @@ namespace NoteEditor.Presenter
             // Finish editing long note by press-escape or right-click
             this.UpdateAsObservable()
                 .Where(_ => EditState.NoteType.Value == NoteTypes.Long)
-                .Where(_ => Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
+                .Where(_ => Input.GetKeyDown(KeyCode.Escape))
                 .Subscribe(_ => EditState.NoteType.Value = NoteTypes.Single);
 
             var finishEditLongNoteObservable = EditState.NoteType.Where(editType => editType == NoteTypes.Single);
